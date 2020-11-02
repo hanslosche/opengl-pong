@@ -1,8 +1,11 @@
-﻿  glad.c
-  main.cpp
-C:\Users\Hans\Desktop\CVED\development\c++\projects\opengl-pong\opengl-pong\main.cpp(188,59): warning C4312: 'type cast': conversion from 'GLint' to 'void *' of greater size
-C:\Users\Hans\Desktop\CVED\development\c++\projects\opengl-pong\opengl-pong\main.cpp(215,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Hans\Desktop\CVED\development\c++\projects\opengl-pong\opengl-pong\main.cpp(215,46): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Hans\Desktop\CVED\development\c++\projects\opengl-pong\opengl-pong\main.cpp(280,59): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-C:\Users\Hans\Desktop\CVED\development\c++\projects\opengl-pong\opengl-pong\main.cpp(280,46): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+﻿  main.cpp
+C:\Users\Hans\Desktop\CVED\development\c++\projects\opengl-pong\opengl-pong\main.cpp(196,59): warning C4312: 'type cast': conversion from 'GLint' to 'void *' of greater size
+C:\Users\Hans\Desktop\CVED\development\c++\projects\opengl-pong\opengl-pong\main.cpp(252,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Hans\Desktop\CVED\development\c++\projects\opengl-pong\opengl-pong\main.cpp(252,46): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Hans\Desktop\CVED\development\c++\projects\opengl-pong\opengl-pong\main.cpp(265,40): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Hans\Desktop\CVED\development\c++\projects\opengl-pong\opengl-pong\main.cpp(271,40): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Hans\Desktop\CVED\development\c++\projects\opengl-pong\opengl-pong\main.cpp(278,40): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Hans\Desktop\CVED\development\c++\projects\opengl-pong\opengl-pong\main.cpp(284,40): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Hans\Desktop\CVED\development\c++\projects\opengl-pong\opengl-pong\main.cpp(332,59): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+C:\Users\Hans\Desktop\CVED\development\c++\projects\opengl-pong\opengl-pong\main.cpp(332,46): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
   opengl-pong.vcxproj -> C:\Users\Hans\Desktop\CVED\development\c++\projects\opengl-pong\x64\Debug\opengl-pong.exe
