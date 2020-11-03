@@ -15,7 +15,7 @@ const char* title = "Pong";
 GLuint shaderProgram;
 
 // graphics paramters
-const float paddleSpeed = 150.0f;
+const float paddleSpeed = 175.0f;
 const float paddleHeight = 100.0f;
 const float halfPaddleHeight = paddleHeight / 2.0f;
 const float paddleWidth = 10.0f;
@@ -43,6 +43,13 @@ float paddleVelocities[2];
 vec2 initBallVelocity = { 150.0f, 150.0f };
 vec2 ballVelocity = { 150.0f, 150.0f };
 
+// game values
+unsigned int leftScore = 0;
+unsigned int rightScore = 0;
+bool isPaused = false;
+bool pauseKeyDown = false;
+float gameSpeed = 1.5f;
+
 /*
 initialization method
 */
@@ -66,8 +73,6 @@ void createWindow(GLFWwindow*& window, const char* title, unsigned int width, un
 	glfwSetFramebufferSizeCallback(window, framebufferSizeCallback);
 	//glViewport(0, 0, width, height);
 }
-
-
 
 // load GLAD lib
 bool loadGlad() {
@@ -185,6 +190,7 @@ void genVAO(VAO* vao) {
 	glGenVertexArrays(1, &vao->val);
 	glBindVertexArray(vao->val);
 }
+
 // generate buffer of certain type and set data
 template<typename T>
 void genBufferObject(GLuint& bo, GLenum type, GLuint noElements, T* data, GLenum usage) {
@@ -328,6 +334,17 @@ void processInput(GLFWwindow* window, double dt) {
 		}
 
 	}
+
+	// pause key
+	if (glfwGetKey(window, GLFW_KEY_P) == GLFW_RELEASE) {
+		pauseKeyDown = false;
+	}
+	else if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS && !pauseKeyDown) {
+		// key just pressed
+		isPaused = !isPaused;
+		gameSpeed = isPaused ? 0.0f : 1.0f;
+		pauseKeyDown = true;
+	}
 }
 
 void clearScreen() {
@@ -335,14 +352,24 @@ void clearScreen() {
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 
+// new frame
 void newFrame(GLFWwindow* window) {
 	glfwSwapBuffers(window);
 	glfwPollEvents();
 }
 
+// display score
+void displayScore() {
+	std::cout << leftScore << "-" << rightScore << std::endl;
+}
+
 void cleanup() {
 	glfwTerminate();
 }
+
+/*
+	MAIN ===================================
+*/
 
 int main() {
 	std::cout << "Hello World!" << std::endl;
@@ -472,6 +499,8 @@ int main() {
 	unsigned int framesSinceLastCollision = -1;
 	unsigned int framesThreshold = 10;
 
+	displayScore();
+
 	// render loop
 	while (!glfwWindowShouldClose(window)) {
 		// update time
@@ -504,11 +533,13 @@ int main() {
 		if (ballOffset.x - ballRadius <= 0) {
 			// collision with left wall
 			std::cout << "Right player point" << std::endl;
+			rightScore++;
 			reset = 1;
 		}
 		else if (ballOffset.x + ballRadius >= scrWidth) {
 			// collision with right wall
 			std::cout << "Left player point" << std::endl;
+			leftScore++;
 			reset = 2;
 		}
 
@@ -520,6 +551,8 @@ int main() {
 			// reset velocity to initial
 			ballVelocity.x = reset == 1 ? initBallVelocity.x : -initBallVelocity.x; // go to player that just scores
 			ballVelocity.y = initBallVelocity.y;
+
+			displayScore();
 		}
 
 		/*
@@ -579,7 +612,7 @@ int main() {
 				if (collision) {
 					// add to y velocity
 					float k = 0.3f;
-					ballVelocity.x *= 1.05;
+					ballVelocity.x *= 1.1f;
 					ballVelocity.y += k * paddleVelocities[i];
 
 					// reset frames counter
@@ -589,12 +622,12 @@ int main() {
 		}
 
 		// update paddle position
-		paddleOffsets[0].y += paddleVelocities[0] * dt;
-		paddleOffsets[1].y += paddleVelocities[1] * dt;
+		paddleOffsets[0].y += paddleVelocities[0] * dt * gameSpeed;
+		paddleOffsets[1].y += paddleVelocities[1] * dt * gameSpeed;
 
 		// update ball position
-		ballOffset.x += ballVelocity.x * dt;
-		ballOffset.y += ballVelocity.y * dt;
+		ballOffset.x += ballVelocity.x * dt * gameSpeed;
+		ballOffset.y += ballVelocity.y * dt * gameSpeed;
 
 		/*
 			graphics
